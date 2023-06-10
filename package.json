@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "jest": "npx jest",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,6 +16,10 @@
     "express": "^4.18.2",
     "git": "^0.1.5",
     "joi": "^17.9.2",
-    "mongoose": "^7.2.3"
+    "mongoose": "^7.2.3",
+    "supertest": "^6.3.3"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0"
   }
 }

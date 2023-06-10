@@ -9,7 +9,7 @@ const createTodoValidationSchema = Joi.object({
 const updateTodoValidationSchema = Joi.object({
   title: Joi.string(),
   description: Joi.string(),
-  done: Joi.boolean().required(),
+  done: Joi.boolean().required,
 });
 
 const idParamSchema = Joi.object({

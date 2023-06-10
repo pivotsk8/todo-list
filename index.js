@@ -23,7 +23,7 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  res.status(500).json({ message: "Error 500 " });
+  res.status(500).json({ message: "Error 500 ", error: err });
 });
 
 app.listen(port, () => {

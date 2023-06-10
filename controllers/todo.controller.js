@@ -1,8 +1,8 @@
 const Todo = require("../model/Todo");
 
 const create = async (req, res) => {
+  const todo = req.body;
   try {
-    const todo = req.body;
     const newTodo = await Todo.create(todo);
     res.status(200).send(newTodo);
   } catch (error) {
@@ -22,7 +22,50 @@ const getAll = async (req, res) => {
   }
 };
 
+const getById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const todoById = await Todo.findById({ _id: id });
+    res.status(200).send(todoById);
+  } catch (error) {
+    res.status(404).json({
+      message: `the task with the id:${id} could not be found`,
+      error,
+    });
+  }
+};
+
+const updateById = async (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  try {
+    const todoUpdated = await Todo.findByIdAndUpdate(id, body, { new: true });
+    res.status(200).send(todoUpdated);
+  } catch (error) {
+    res.status(404).json({
+      message: "the task could not be modified",
+      error,
+    });
+  }
+};
+
+const deleteById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const todoDelete = await Todo.findByIdAndDelete(id);
+    res.status(200).send(todoDelete);
+  } catch (error) {
+    res.status(404).json({
+      message: `the task with the id:${id} could not be found or not delete it`,
+      error,
+    });
+  }
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
+  updateById,
+  deleteById,
 };

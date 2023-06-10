@@ -22,6 +22,10 @@ app.use((req, res) => {
   res.send("Page non trouvee");
 });
 
+app.use((err, req, res, next) => {
+  res.status(500).json({ message: "Error 500 " });
+});
+
 app.listen(port, () => {
   console.log(`Application run in port ${port} 😃 `);
 });

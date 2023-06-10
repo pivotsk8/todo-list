@@ -55,6 +55,7 @@ const getById = async (req, res) => {
 const updateById = async (req, res) => {
   const { id } = req.params;
   const { body } = req;
+
   try {
     const todoUpdated = await Todo.findByIdAndUpdate(id, body, { new: true });
     res.status(200).send(todoUpdated);
@@ -68,8 +69,13 @@ const updateById = async (req, res) => {
 
 const deleteById = async (req, res) => {
   const { id } = req.params;
+  const { error } = idParamSchema.validate({ id });
+  let todoDelete;
+
   try {
-    const todoDelete = await Todo.findByIdAndDelete(id);
+    error
+      ? res.status(400).json({ message: "Id is not valid" })
+      : (todoDelete = await Todo.findByIdAndDelete(id));
     res.status(200).send(todoDelete);
   } catch (error) {
     res.status(404).json({

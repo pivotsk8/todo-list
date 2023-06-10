@@ -28,13 +28,6 @@ const getAll = catchAsync(async (req, res) => {
   res.send(allTodos);
 });
 
-// const validationId = (id) => {
-//   const { error } = idParamSchema.validate({ id });
-//   if (error) {
-//     return res.status(400).json({ message: "Id is not valid" });
-//   }
-// };
-
 const getById = catchAsync(async (req, res) => {
   //👉 Variable
   const { id } = req.params;

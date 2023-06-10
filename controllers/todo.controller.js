@@ -1,16 +1,21 @@
 const Todo = require("../model/Todo");
-const { todoValidation } = require("../validators/todoValidation");
+const {
+  createTodoValidationSchema,
+  updateTodoValidationSchema,
+  idParamSchema,
+} = require("../validators/todoValidation");
 
 const create = async (req, res) => {
   const todo = req.body;
-  const { error } = todoValidation.validate(todo);
-
-  if (error) {
-    return res.status(400).json({ error: error.details[0].message });
-  }
+  let newTodo;
 
   try {
-    const newTodo = await Todo.create(todo);
+    const { error } = createTodoValidationSchema.validate(todo);
+    error
+      ? res.status(400).json({
+          error: `The field:(${error.details[0].message}) `,
+        })
+      : (newTodo = await Todo.create(todo));
     res.status(200).send(newTodo);
   } catch (error) {
     res.status(404).json({
@@ -31,8 +36,13 @@ const getAll = async (req, res) => {
 
 const getById = async (req, res) => {
   const { id } = req.params;
+  const { error } = idParamSchema.validate({ id });
+  let todoById;
+
   try {
-    const todoById = await Todo.findById({ _id: id });
+    error
+      ? res.status(400).json({ message: "Id is not valid" })
+      : (todoById = await Todo.findById({ _id: id }));
     res.status(200).send(todoById);
   } catch (error) {
     res.status(404).json({
@@ -44,7 +54,7 @@ const getById = async (req, res) => {
 
 const updateById = async (req, res) => {
   const { id } = req.params;
-  const body = req.body;
+  const { body } = req;
   try {
     const todoUpdated = await Todo.findByIdAndUpdate(id, body, { new: true });
     res.status(200).send(todoUpdated);

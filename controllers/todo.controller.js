@@ -1,7 +1,14 @@
 const Todo = require("../model/Todo");
+const { todoValidation } = require("../validators/todoValidation");
 
 const create = async (req, res) => {
   const todo = req.body;
+  const { error } = todoValidation.validate(todo);
+
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
+
   try {
     const newTodo = await Todo.create(todo);
     res.status(200).send(newTodo);

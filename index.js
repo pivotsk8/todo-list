@@ -12,8 +12,8 @@ const port = 3000;
 mongoose.connect(process.env.CONNECTION_IN_DB);
 
 //👉 midleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use("/todos", todoRouter);
 

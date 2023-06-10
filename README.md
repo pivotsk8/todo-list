@@ -32,7 +32,19 @@ El repositorio se compone de los siguientes directorios y archivos principales:
 
 Para iniciar el proyecto en modo de desarrollo, ejecuta el siguiente comando: npm run dev
 
-Esto iniciará el servidor y podrás acceder a la API en [http://localhost:3000](http://localhost:3000).
+Esto iniciará el servidor y podrás acceder a la API en [http://localhost:3000/todos](http://localhost:3000/todos).
+
+- GET ALL [http://localhost:3000/todos](http://localhost:3000/todos)
+- GET BY ID [http://localhost:3000/todos/:id](http://localhost:3000/todos/:id)
+- POST [http://localhost:3000/todos](http://localhost:3000/todos)
+  - body ({
+    "title":"title",
+    "description":"description"
+    "done":"boolean"
+    })
+- UPDATE [http://localhost:3000/todos/:id](http://localhost:3000/todos/:id)
+- body(El unico cambio que tiene que ser obligatorio es el done)
+- DELETE [http://localhost:3000/todos/:id](http://localhost:3000/todos/:id)
 
 ## Pruebas
 

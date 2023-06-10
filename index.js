@@ -9,7 +9,10 @@ const app = express();
 const port = 3000;
 
 //👉 Connection DB
-mongoose.connect(process.env.CONNECTION_IN_DB);
+mongoose.connect(process.env.CONNECTION_IN_DB, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 //👉 midleware
 app.use(bodyParser.urlencoded({ extended: false }));

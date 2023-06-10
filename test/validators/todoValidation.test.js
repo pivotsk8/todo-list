@@ -46,6 +46,7 @@ describe("Todo Validation", () => {
     it("should allow partial updates without required fields", () => {
       const validRequest = {
         title: "Test Title",
+        done: true,
       };
 
       const { error } = updateTodoValidationSchema.validate(validRequest);
